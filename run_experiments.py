@@ -1,5 +1,3 @@
-# Fichier: run_experiments.py
-
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import regularizers
@@ -7,7 +5,7 @@ import numpy as np
 import mlflow
 import mlflow.tensorflow
 
-# --- 1. Préparation des données (Exercice 2.1) ---
+# Préparation des données
 def load_and_prepare_data():
     """Charge et prépare les données MNIST en ensembles d'entraînement, validation et test."""
     (x_train_full, y_train_full), (x_test, y_test) = keras.datasets.mnist.load_data()
@@ -28,7 +26,7 @@ def load_and_prepare_data():
     
     return (x_train, y_train), (x_val, y_val), (x_test, y_test)
 
-# --- 2. Fonction pour construire le modèle ---
+# Fonction pour construire le modèle
 def build_model(use_l2=False, use_dropout=False, use_batch_norm=False):
     """Construit un modèle Keras avec des options pour la régularisation et la batch norm."""
     
@@ -51,11 +49,11 @@ def build_model(use_l2=False, use_dropout=False, use_batch_norm=False):
     model = keras.Sequential(layers)
     return model
 
-# --- 3. Script principal pour lancer les expériences ---
+# Script principal pour lancer les expériences
 if __name__ == "__main__":
     (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_and_prepare_data()
 
-    # --- Expérience 1: Analyse Biais/Variance (Modèle de base) ---
+    # Expérience 1: Analyse Biais/Variance (Modèle de base)
     print("\n--- Démarrage de l'expérience 1: Modèle de base ---")
     with mlflow.start_run(run_name="Base_Model_Bias_Variance"):
         model_base = build_model()
@@ -73,7 +71,7 @@ if __name__ == "__main__":
         mlflow.log_metric("test_accuracy", test_acc)
         mlflow.log_metric("final_val_accuracy", history.history['val_accuracy'][-1])
 
-    # --- Expérience 2: Application de la Régularisation (L2 + Dropout) ---
+    # Expérience 2: Application de la Régularisation (L2 + Dropout)
     print("\n--- Démarrage de l'expérience 2: Modèle avec Régularisation ---")
     with mlflow.start_run(run_name="Regularized_Model"):
         model_reg = build_model(use_l2=True, use_dropout=True)
@@ -91,7 +89,7 @@ if __name__ == "__main__":
         mlflow.log_metric("test_accuracy", test_acc)
         mlflow.log_metric("final_val_accuracy", history.history['val_accuracy'][-1])
         
-    # --- Expérience 3: Comparaison des Optimiseurs ---
+    # Expérience 3: Comparaison des Optimiseurs
     print("\n--- Démarrage de l'expérience 3: Comparaison des Optimiseurs ---")
     optimizers = {
         'SGD_with_momentum': keras.optimizers.SGD(learning_rate=0.01, momentum=0.9),
@@ -120,7 +118,7 @@ if __name__ == "__main__":
             mlflow.log_metric("test_accuracy", test_acc)
             mlflow.log_metric("final_val_accuracy", history.history['val_accuracy'][-1])
     
-    # --- Expérience 4: Ajout de la Batch Normalization ---
+    # Expérience 4: Ajout de la Batch Normalization
     print("\n--- Démarrage de l'expérience 4: Modèle avec Batch Normalization ---")
     with mlflow.start_run(run_name="Model_With_Batch_Norm"):
         model_bn = build_model(use_l2=True, use_dropout=True, use_batch_norm=True)
