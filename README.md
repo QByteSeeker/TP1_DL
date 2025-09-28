@@ -1,65 +1,65 @@
-# Projet : Cycle de Vie d'un Modèle Deep Learning
+# Projet : Cycle de Vie des Modèles de Deep Learning
 
-Ce projet illustre le cycle de vie complet d'un modèle de classification d'images (MNIST), de l'entraînement au déploiement via une API conteneurisée avec Docker.
+Ce dépôt GitHub contient les travaux pratiques réalisés dans le cadre du cours sur l'ingénierie des modèles de Deep Learning. Il couvre le cycle de vie complet d'un modèle, depuis sa conception initiale jusqu'à son amélioration et son déploiement.
 
-## Technologies utilisées
+Le projet est divisé en deux parties, chacune résidant sur sa propre branche Git.
 
-*   **Python**
-*   **TensorFlow / Keras** : Pour la construction et l'entraînement du modèle.
-*   **MLflow** : Pour le suivi des expérimentations.
-*   **Flask** : Pour la création de l'API web.
-*   **Docker** : Pour la conteneurisation de l'application.
+## Structure du Dépôt
 
-## Structure du Projet
+Pour isoler le travail de chaque TP, ce dépôt utilise des branches Git :
 
+* **`main`** : Cette branche, qui contient cette présentation générale du projet.
+* **`tp1`** : Contient tout le code et les rapports pour le premier TP, axé sur la création et le déploiement d'un modèle de base.
+* **`tp2`** : Contient le code et les rapports pour le second TP, qui se concentre sur l'amélioration et l'optimisation de ce modèle.
+
+---
+
+## Contenu des Travaux Pratiques
+
+### Branche `tp1` : De la Conception au Déploiement d'un Modèle
+
+Cette première partie aborde les étapes fondamentales pour mettre en production un modèle de Deep Learning.
+
+*   **Construction** d'un réseau de neurones avec Keras pour la classification sur MNIST.
+*   **Versionnement** du code avec Git et GitHub.
+*   **Suivi des expérimentations** avec MLflow.
+*   **Création d'une API web** avec Flask pour servir les prédictions du modèle.
+*   **Conteneurisation** de l'application avec Docker pour un déploiement reproductible.
+
+### Branche `tp2` : Amélioration des Réseaux de Neurones Profonds
+
+Cette seconde partie explore les techniques avancées pour améliorer la performance et la robustesse du modèle initial.
+
+*   **Analyse de la performance** du modèle (biais et variance).
+*   **Application de techniques de régularisation** (L2, Dropout) pour lutter contre le surapprentissage.
+*   **Comparaison d'optimiseurs avancés** (Adam, RMSprop, SGD avec momentum).
+*   **Utilisation de la Batch Normalization** pour accélérer et stabiliser l'entraînement.
+
+---
+
+## Comment Accéder au Code
+
+Pour consulter le code de chaque TP, utilisez les commandes Git suivantes depuis votre terminal après avoir cloné le dépôt :
+
+```bash
+# Pour voir le code du TP1
+git checkout tp1
 ```
-.
-├── train_model.py      # Script pour entraîner le modèle et le sauvegarder
-├── app.py              # API Flask pour servir le modèle
-├── requirements.txt    # Dépendances Python du projet
-├── Dockerfile          # Instructions pour construire l'image Docker
-└── mnist_model.h5      # Modèle entraîné (généré par train_model.py)
+
+```bash
+# Pour voir le code du TP2
+git checkout tp2
 ```
 
-## Comment l'utiliser ?
+```bash
+# Pour revenir à cette page d'accueil
+git checkout main
+```
 
-### Prérequis
+## Technologies Principales
 
-*   Python 3.8+
+*   TensorFlow / Keras
+*   MLflow
+*   Flask
 *   Docker
-
-### 1. Installation des dépendances
-
-Clonez le dépôt et installez les bibliothèques nécessaires :
-```bash
-git clone https://github.com/QByteSeeker/TP1_DL.git
-cd TP1_DL
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-### 2. Entraînement du modèle
-
-Exécutez le script d'entraînement. Cela va créer le fichier `mnist_model.h5` et enregistrer les métriques avec MLflow.
-```bash
-python train_model.py
-```
-Pour visualiser les résultats de l'expérience, lancez l'interface de MLflow :
-```bash
-mlflow ui
-```
-
-### 3. Lancer l'API avec Docker
-
-1.  **Construire l'image Docker :**
-    ```bash
-    docker build -t mnist-api .
-    ```
-
-2.  **Lancer le conteneur :**
-    ```bash
-    docker run -p 5000:5000 mnist-api
-    ```
-
-L'API est maintenant accessible à l'adresse `http://localhost:5000/predict`. Vous pouvez envoyer une requête POST avec une image 28x28 (aplatie en un vecteur de 784 pixels) pour obtenir une prédiction.
+*   Git / GitHub
