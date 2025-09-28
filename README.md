@@ -32,9 +32,10 @@ Ce projet illustre le cycle de vie complet d'un modèle de classification d'imag
 
 Clonez le dépôt et installez les bibliothèques nécessaires :
 ```bash
-git clone https://github.com/QByteSeeker/TP1_DL.git
-cd TP1_DL
-python3 -m venv venv
+git clone https://github.com/QByteSeeker/TP_DL.git
+cd TP_DL
+git checkout tp1
+python3 -m venv venv  # Si aucun environnement virtuel n'est défini
 source venv/bin/activate
 pip install -r requirements.txt
 ```
