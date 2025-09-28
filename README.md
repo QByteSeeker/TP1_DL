@@ -1,24 +1,23 @@
-# Projet : Cycle de Vie d'un Modèle Deep Learning
+# TP2 : Amélioration des Réseaux de Neurones Profonds
 
-Ce projet illustre le cycle de vie complet d'un modèle de classification d'images (MNIST), de l'entraînement au déploiement via une API conteneurisée avec Docker.
+Ce projet est la suite du TP1 et se concentre sur les techniques avancées pour améliorer la performance et la robustesse des modèles de Deep Learning.
 
-## Technologies utilisées
+## Objectifs et Techniques Explorées
 
-*   **Python**
-*   **TensorFlow / Keras** : Pour la construction et l'entraînement du modèle.
-*   **MLflow** : Pour le suivi des expérimentations.
-*   **Flask** : Pour la création de l'API web.
-*   **Docker** : Pour la conteneurisation de l'application.
+*   **Diagnostic de Performance** : Analyse du biais et de la variance en utilisant des ensembles d'entraînement et de validation distincts.
+*   **Régularisation** : Mise en œuvre de la régularisation L2 et du Dropout pour combattre le surapprentissage.
+*   **Optimisation Avancée** : Comparaison des performances des optimiseurs Adam, RMSprop et SGD avec momentum.
+*   **Normalisation** : Utilisation de la Batch Normalization pour accélérer et stabiliser l'entraînement.
+
+Toutes les expériences sont suivies et comparées à l'aide de **MLflow**.
 
 ## Structure du Projet
 
 ```
 .
-├── train_model.py      # Script pour entraîner le modèle et le sauvegarder
-├── app.py              # API Flask pour servir le modèle
-├── requirements.txt    # Dépendances Python du projet
-├── Dockerfile          # Instructions pour construire l'image Docker
-└── mnist_model.h5      # Modèle entraîné (généré par train_model.py)
+├── run_experiments.py  # Script principal pour lancer toutes les expériences
+├── requirements.txt    # Dépendances Python
+└── report_tp2.pdf      # Rapport résumant les concepts et les résultats
 ```
 
 ## Comment l'utiliser ?
@@ -26,40 +25,33 @@ Ce projet illustre le cycle de vie complet d'un modèle de classification d'imag
 ### Prérequis
 
 *   Python 3.8+
-*   Docker
+*   Avoir installé les dépendances listées dans `requirements.txt`.
 
 ### 1. Installation des dépendances
 
 Clonez le dépôt et installez les bibliothèques nécessaires :
+
 ```bash
-git clone https://github.com/QByteSeeker/TP1_DL.git
-cd TP1_DL
-python3 -m venv venv
+git clone https://github.com/QByteSeeker/TP_DL.git
+cd TP_DL
+checkout tp2
+
+python3 -m venv venv # Si aucun environnement virtuel n'est défini
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Entraînement du modèle
+### 2. Lancer les Expériences
 
-Exécutez le script d'entraînement. Cela va créer le fichier `mnist_model.h5` et enregistrer les métriques avec MLflow.
+Exécutez le script principal. Cela va entraîner séquentiellement les différents modèles et enregistrer les résultats dans MLflow.
 ```bash
-python train_model.py
+python run_experiments.py
 ```
-Pour visualiser les résultats de l'expérience, lancez l'interface de MLflow :
+
+### 3. Visualiser les Résultats
+
+Pour comparer les performances des différents modèles, lancez l'interface utilisateur de MLflow dans votre terminal :
 ```bash
 mlflow ui
 ```
-
-### 3. Lancer l'API avec Docker
-
-1.  **Construire l'image Docker :**
-    ```bash
-    docker build -t mnist-api .
-    ```
-
-2.  **Lancer le conteneur :**
-    ```bash
-    docker run -p 5000:5000 mnist-api
-    ```
-
-L'API est maintenant accessible à l'adresse `http://localhost:5000/predict`. Vous pouvez envoyer une requête POST avec une image 28x28 (aplatie en un vecteur de 784 pixels) pour obtenir une prédiction.
+Ouvrez votre navigateur à l'adresse `http://127.0.0.1:5000` pour analyser les courbes d'apprentissage, les métriques et les paramètres de chaque exécution.
